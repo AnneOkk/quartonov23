@@ -1,0 +1,141 @@
+---
+title: "Exercise"
+author: "Anne"
+execute: 
+  echo: false
+  message: false
+  warning: false
+  include: true
+editor: visual
+bibliography: "config/refs.bib"
+csl: "config/apa.csl"
+format: 
+  docx:
+    reference-doc: "config/template_apa.docx"
+---
+
+# Preprocessing
+
+## Reading data in
+
+```{r}
+## Read in data
+library(readxl)
+library(tidyverse)
+data <- read_excel("data/raw/data.xlsx", col_names = T) 
+```
+
+## Manipulating data
+
+```{r}
+# Name correction
+names(data) <- gsub("d2priv", "dapriv2", names(data))
+
+# Own function
+recode_5 <- function(x) {               
+  x * (-1)+6
+}
+
+# Use of mutate_at to apply function
+data_proc <- data %>%
+  mutate_at(vars(matches("gattAI1_3|gattAI1_6|gattAI1_8|gattAI1_9|gattAI1_10|gattAI2_5|gattAI2_9|gattAI2_10")), recode_5)
+```
+
+## Exporting data
+
+```{r}
+haven::write_sav(data_proc, "data/processed/data_proc.sav") 
+```
+
+For a cleaner look, all the above steps could also be performed in a separate "data_preprocessing.R" file that may be stored in the R folder.
+
+## Storing and sourcing custom functions from the R folder
+
+Now, we need to source our custom functions and read in the preprocessed data.
+
+```{r}
+source("R/custom-functions.R")
+```
+
+# Tables and visualisations
+
+## Reading in data
+
+```{r}
+data <- haven::read_sav("data/processed/data_proc.sav")
+```
+
+## Creating a correlation table
+
+In the following, we display the correlations between the core model variables.
+
+### Creating composites
+
+```{r}
+data <- data[ , purrr::map_lgl(data, is.numeric)] %>% # select numeric variables
+  select(matches("gattAI1|soctechblind|trust1|anxty1|SocInf1|Age")) # select relevant variables
+
+comp_split <- data %>% sjlabelled::remove_all_labels(.) %>% 
+  split.default(sub("_.*", "", names(data))) # creating a list of dataframes, where each dataframe consists of the columns from the original data that shared the same prefix (all characters before the underscore)
+
+comp <- purrr::map(comp_split, ~ rowMeans(.x, na.rm=T)) #calculating the row-wise mean of each data frame in the list `comp_split`, with the output being a new list (`comp`) where each element is a numeric vector of row means from each corresponding data frame in `comp_split`
+
+comp_df <- do.call("cbind", comp) %>% as.data.frame(.) # binding all the elements in the list `comp` into a single data frame, `comp_df`
+```
+
+## Creating the correlation table
+
+```{r}
+cor_tab <- corstars(comp_df, removeTriangle = "upper")
+cor_tab
+```
+
+```{r}
+rempsyc::nice_table(cor_tab, title = "Correlations between core model variables", note = c(
+    "An example datase.",
+    "* p < .05, ** p < .01, *** p < .001")
+    )
+```
+
+## Creating plots
+
+```{r}
+cor_matrix <- cor(comp_df[1:6])
+
+corrplot::corrplot(cor_matrix, method="color", type="upper", order="hclust", 
+         addCoef.col = "black", # Add correlation coefficient on the plot
+         tl.col="black", # Text label color
+         tl.srt=90, # Text label rotation
+         title="Correlation matrix", mar=c(0,0,1,0))
+
+```
+
+```{r}
+scatter <- ggplot(comp_df, aes(x=SocInf1, y=trust1, color=Age)) +
+  geom_point() +
+  labs(x="Anxiety", y="GattAI1", color="Age") +
+  theme_minimal() +
+  ggtitle("Scatterplot of social influence and trust colored by age")
+scatter
+```
+
+```{r}
+ggsave(filename="output/figs/scatter.png", plot=scatter)
+```
+
+# Theory
+
+## Theoretical background
+
+As reported by @al-antari2020, students are eager to receive formal training on how to use AI Chatbots for their studies.
+
+## Methods
+
+We used the questionnaire developed by @g.andrejková2021 to measure the readiness to use AI among medical students.
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum [@d.babic2022; @teckert2020; @ye2018].
+
+# References
+
+::: {#refs custom-style="Bibliography"}
+:::

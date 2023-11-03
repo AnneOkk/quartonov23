@@ -1,0 +1,577 @@
+---
+title: "Introduction to reproducible data analysis with R and Quarto - Day II"
+title-slide-attributes:
+    data-background-color: "#a13c65"
+    data-background-image: "images/LMU_Logo.png"
+    data-background-size: 15%
+    data-background-position: 50% 83%
+subtitle: "KLI Seminar 2023"
+author:
+  - name: Anne-Kathrin Kleine
+format:
+  revealjs: 
+    slide-number: true
+    width: 1500
+    height: 1000
+    chalkboard: 
+      buttons: false
+    preview-links: false
+    footer: <https://quarto.org>
+    theme: [simple, custom.scss]
+    logo: "images/LMU_Logo.png"
+    scrollable: false
+    center: true
+    incremental: false
+    link-external-newwindow: true
+resources:
+  - demo.pdf
+---
+
+```{r include=FALSE}
+library(fontawesome)
+library(tidyverse)
+library(quarto)
+library(gt)
+library(gtExtras)
+```
+
+# Schedule {background-color="#a13c65"}
+
+## DAY 2
+
+::: fragment
+### 09.00-10.00: Publishing Reproducible Data Analysis Scripts
+
+-   Sharing your scripts and data
+-   Publishing through GitHub, RPubs; integration with osf
+:::
+
+::: fragment
+### 10.15-11.00: Hands-on Practice PART I
+
+-   Guided exercise: Data analysis project using R and Quarto
+-   Independent practice: Working on your data analysis project with support from workshop facilitator
+:::
+
+------------------------------------------------------------------------
+
+### 11.30-12.15: Hands-on Practice PART II
+
+::: fragment
+### 12.00-13.00: Closing Remarks and Resources
+
+-   Recap of the workshop
+-   Additional resources for learning R, Quarto, reproducibility best practices, version control and collaboration
+-   Q&A session
+:::
+
+
+# `r fontawesome::fa("laptop-code", "white")` Your Turn (15 min) {background-color="#447099" transition="slide-in"}
+
+-   
+
+<br>
+
+-   Move to the (integrated) terminal and execute:
+
+-   Render via terminal with `quarto render ....qmd --to pdf`
+
+-   Compare to the HTML version
+
+# Code collaboration using Git and GitHub {background-color="#a13c65"}
+
+## Advantages of using Git and GitHub
+
+. . .
+
+::: {style="font-size: 1.2em"}
+-   Contribute to open source projects, see [here](https://www.dataschool.io/how-to-contribute-on-github/) (almost all open source projects use GitHub) 🎈
+:::
+
+. . .
+
+::: {style="font-size: 1.2em"}
+-   Showcase your work 🎤
+:::
+
+. . .
+
+::: {style="font-size: 1.2em"}
+-   Track changes across versions 🔍
+:::
+
+. . .
+
+::: {style="font-size: 1.2em"}
+-   Collaborate on projects 👨‍🔬 👷‍♀️
+:::
+
+. . .
+
+::: {style="font-size: 1.2em"}
+-   Various integration options 🤹‍♂️
+    -   GitHub pages or Netlify to build websites 
+:::
+
+## Version Control --- Git and GitHub --- Definitions
+
+::: incremental
+### Git ![](images/git.png){width="50px"}
+
+-   a software that keeps track of versions of a set of files
+-   it is *local* to you; the records are kept on your computer
+
+### GitHub ![](images/github.png){width="70px"}
+
+-   a hosting service that can keep the records
+-   it is *remote* to you, like Dropbox
+-   GitHub is specifically structured to keep records with Git
+:::
+
+## 
+
+::: fragment
+### Repository, or repo
+
+-   a set of files whose records are kept together, by Git and/or on GitHub
+:::
+
+::: fragment
+### To commit
+
+-   to take a snapshot of a repository
+-   it is local, the records are kept on your computer unless you push
+:::
+
+::: fragment
+### To push
+
+-   to move a copy of the records from Git to GitHub, from your computer to online server
+-   it is like uploading (the new versions of) your files and sub-folders to a website
+:::
+
+## 
+
+# Quick excourse: *Setting up Git and GitHub* {background-color="#DADEFD"}
+
+1)  Read the instructions in the [Happy Git with R Book](https://happygitwithr.com/) and the [official GitHub guides](https://docs.github.com/en/get-started/quickstart/set-up-git) to install Git. [Installation instructions for Windows users](https://www.computerhope.com/issues/ch001927.htm)
+
+2)  [Register a GitHub account](https://happygitwithr.com/github-acct.html)
+
+
+## GitHub - create a repository
+
+![](images/create_repo.png)
+
+
+
+## Version Control --- Git and GitHub --- check setup
+
+. . .
+
+In the **terminal** 📱:
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git --version
+```
+:::
+
+-   you should see the Git version ✅
+
+. . .
+
+In the **terminal** 📱:
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git config --global user.name
+```
+:::
+
+-   you should see the Git user name ✅
+
+<br />
+
+. . .
+
+#### 🚫 If these steps did not work, go [here](https://docs.github.com/en/get-started/getting-started-with-git/setting-your-username-in-git) and set up Git
+
+#### You just don't want to use the terminal ❓ ▶ For version control in RStudio, see [here](https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN), and particularly [**this video**](https://www.youtube.com/watch?v=megZYkCLMA4)
+
+## Version Control --- Git and GitHub --- connect local with remote
+
+::: columns
+::: {.column width="40%"}
+1)  Go to GitHub and create a new repository
+
+![](images/new_repo.png){width="500px"}
+:::
+
+::: {.column width="60%"}
+2)  Fill in some info, create a public repository ![](images/testrepo.png){width="800px"}
+:::
+:::
+
+## 
+
+3)  Follow the steps in Option 1: *"...create a new repository on the command line"*
+
+![](images/push.png){width="900px"}
+
+## 
+
+4)  In the **terminal** 📱, navigate to your Quarto project folder:
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+cd project_folder
+```
+:::
+
+<br/>
+
+. . .
+
+5)  initialize a git repo on your local machine:
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git init
+```
+:::
+
+<br/>
+
+. . .
+
+6)  create content you can then add in the next step (e.g., README file):
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+touch README.md
+```
+:::
+
+## 
+
+7)  stage all the content in that folder to be added:
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git add .
+```
+:::
+
+<br/>
+
+. . .
+
+8)  stage all the content in that folder to be committed:
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git commit -m "add empty readme"
+```
+:::
+
+## 
+
+9)  connect local repo to the remote repo. Substitute the link with your repo URL!
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git remote add origin https://github.com/AnneOkk/testrepo.git
+```
+:::
+
+<br/>
+
+. . .
+
+10) push all the content from Git to GitHub:
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git push origin master
+```
+:::
+
+<br/>
+
+. . .
+
+![](images/success.png){width="800px"}
+
+### 🎈 The pushed files should appear in your GitHub repository 🎈
+
+## Version Control --- Git and GitHub --- collaborating
+
+### Imagine... 🤔
+
+. . .
+
+-   you work in a team of data scientists/ data enthusiastic researchers 🧙🧙🏿🧙‍♀️🧙🏻‍♀️
+
+. . .
+
+-   you want to be able to work together on a data analysis project 👨‍💻👩‍💻 👨‍💻👩‍💻
+
+. . .
+
+-   you want to keep track of what the others do and finally merge individual contributions into one overall project ✨ 💾 ✨
+
+. . .
+
+#### But how ❓ 🤷
+
+# Version Control --- Git and GitHub --- collaborating {background-color="#a13c65"}
+
+## Scenario 1 - you are owner/ collaborator
+
+1)  Go to the GitHub repository you are working on as a team
+
+. . .
+
+2)  In the terminal 📱, navigate to where you want to store the project files and type:
+
+::: {style="font-size: 60px;"}
+``` {.bash filename="terminal"}
+git clone https://github.com/AnneOkk/testrepo.git
+```
+:::
+
+. . .
+
+![](images/clone.png){width="800px"}
+
+## 
+
+3)  Next, you would always want to make sure that you are up to date with what has changed in the remote repository
+
+. . .
+
+In the 📱 terminal 📱, type:
+
+::: {style="font-size: 60px;"}
+``` {.bash filename="terminal"}
+git pull origin master
+```
+:::
+
+. . .
+
+<br/>
+
+4)  Create a new branch to add changes that belong to a novel feature you are working on (this prevents messing up the master branch)
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git checkout -b "cool-feature"
+```
+:::
+
+. . .
+
+<br/>
+
+5)  Now make some changes (e.g., add the new cool feature to the code)
+
+## 
+
+6)  Add and commit the files ...through the usual workflow 😴
+
+::: {style="font-size: 60px;"}
+``` {.bash filename="terminal"}
+git add .
+git commit -m "new feature file added"
+```
+:::
+
+. . .
+
+<br/>
+
+🚧 👀 BUT you push the changes to the newly created branch to prevent messing up the master branch! 👀 🚧
+
+::: {style="font-size: 60px;"}
+``` {.bash filename="terminal"}
+git push origin cool-feature
+```
+:::
+
+. . .
+
+![](images/pull.png){width="1000px"}
+
+## 
+
+7)  On GitHub, create a pull request
+
+![](images/pull_req.png){width="700px"}
+
+. . .
+
+<br/>
+
+8)  Once all issues are resolved, your changes will be merged into the master branch 🥳
+
+## 
+
+9)  Checkout to master branch
+
+::: {style="font-size: 60px;"}
+``` {.bash filename="terminal"}
+git checkout master
+```
+:::
+
+. . .
+
+<br/>
+
+10) Pull changes
+
+::: {style="font-size: 60px;"}
+``` {.bash filename="terminal"}
+git pull origin master
+```
+:::
+
+. . .
+
+<br/>
+
+11) Checkout a new branch for missing feature.
+
+::: {style="font-size: 60px;"}
+``` {.bash filename="terminal"}
+git checkout -b data-reader
+```
+:::
+
+<br/>
+
+. . .
+
+### ... And so on ...
+
+## Scenario 2 - you want to contribute to an open science project
+
+. . .
+
+1)  In GitHub, navigate to the project you want to contribute to
+
+. . .
+
+2)  Fork the repo!
+
+![](images/fork.png){width="700px"}
+
+. . .
+
+3)  Clone the new repo!
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git clone https://github.com/AnneOkk/Testrepo-1.git
+```
+:::
+
+. . .
+
+4)  Make your changes and then add, commit, and push to your master branch
+
+. . .
+
+## 
+
+5)  On GitHub, go back to the original repository and create a pull request.
+
+You may need to click "compare across forks"
+
+![](images/successful_pull.png){width="700px"}
+
+## ... On the other side (repo owner)
+
+![](images/review_pull.png){width="250px"}
+
+Open and review the pull request! 🔍
+
+If you're happy with the changes, merge! 👍
+
+Otherwise, request additional changes in comments. 💬
+
+. . .
+
+<br/>
+
+### 🎊 Yey, you're all set to contribute to open science projects on GitHub! 🎊
+
+# `r fontawesome::fa("laptop-code", "white")` Your Turn (15 min) {background-color="#447099" transition="slide-in"}
+
+1.  \[Get Git and GitHub up and running\]
+
+2.  Connect your local R project folder with a GitHub repository
+
+3.  Change some of the content in R, save, and then push the changes to GitHub
+
+::: {style="font-size: 70px;"}
+``` {.bash filename="terminal"}
+git add .
+git commit -m "senseful commit message that describes the change(s)"
+git push origin master
+```
+:::
+
+<br />
+
+3.  \[OPTIONAL\] Create a pull request for your own repository and merge the changes into the master branch
+
+# Integrating osf with GitHub {background-color="#a13c65"}
+
+## Integrating osf with GitHub
+
+1)  Create your osf project
+
+. . .
+
+2)  Enable GitHub in Add-ons
+
+![](images/osf_int.png){width="850px"}
+
+## 
+
+3)  Import GitHub Account
+
+![](images/osf_imp.png){width="600px"}
+
+## 
+
+### 4. Select Repo
+
+![](images/osf_sel.png){width="800px"}
+
+. . .
+
+### 🎊 Yey, you're all set to connect your GitHub content to osf! 🎊
+
+## ...And there is so much more! {background-color="#a13c65"}
+
+::: {style="text-align: right;"}
+![](images/m3.jpeg){height="550px"}
+
+Find me at:
+
+`r fa("twitter")` [\@AnKaKleine](https://twitter.com/ankakleine?lang=en)
+
+`r fa("github")` [\@AnneOkk](https://github.com/AnneOkk)
+
+`r fa("link")` [http://annekathrinkleine.com/](https://annekathrinkleine.com//)
+:::
+
+-   You will get the chance to work on your own data analysis project
+
+-   For this, you will have \~ 30 minutes to prepare the folder structure tomorrow
+
+-   You may use either the example material or work on your own projects

@@ -1,0 +1,4 @@
+- source: slides.qmd
+  quarto-pub:
+    - id: 1656b007-af32-45b8-aedf-6adabedbb850
+      url: 'https://quartopub.com/sites/anneokk/data-analysis-with-r-and-quarto--collaboration-using-github'

@@ -1,2 +1,2 @@
-# quartonov23
-A repository for the Quarto Workshop November 2023
+# Quarto workshop 2022
+A respository for the Quarto Workshop I presented to the Human-AI team, Munich, Sep 2022
