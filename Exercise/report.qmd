@@ -127,15 +127,14 @@ ggsave(filename="output/figs/scatter.png", plot=scatter)
 
 ## Theoretical background
 
-As reported by @al-antari2020, students are eager to receive formal training on how to use AI Chatbots for their studies.
+As reported by \@al-antari2020, students are eager to receive formal training on how to use AI Chatbots for their studies.
 
 ## Methods
 
-We used the questionnaire developed by @g.andrejková2021 to measure the readiness to use AI among medical students.
+We used the questionnaire developed by \@g.andrejková2021 to measure the readiness to use AI among medical students.
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum [@d.babic2022; @teckert2020; @ye2018].
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum \[\@d.babic2022; \@teckert2020; \@ye2018\].
 
 # References
 
-::: {#refs custom-style="Bibliography"}
-:::
+::: {#refs custom-style="Bibliography"} :::

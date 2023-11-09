@@ -411,7 +411,12 @@ Anne-Kathrin Kleine
 <h2>DAY 2</h2>
 <div class="fragment">
 <!-- -->
-<h3 id="publishing-reproducible-data-analysis-scripts">09.00-10.00: Publishing Reproducible Data Analysis Scripts</h3>
+<h3 id="recap-from-yesterday-tidystats-and-the-groundhog-package">09.00-9.30: Recap from yesterday, tidystats and the groundhog package</h3>
+</div>
+<p><br></p>
+<div class="fragment">
+<!-- -->
+<h3 id="publishing-reproducible-data-analysis-scripts">09.30-10.30: Publishing Reproducible Data Analysis Scripts</h3>
 <ul>
 <li>Sharing your scripts and data</li>
 <li>Publishing through GitHub, RPubs; integration with osf</li>
@@ -419,193 +424,416 @@ Anne-Kathrin Kleine
 </div>
 <div class="fragment">
 <!-- -->
-<h3 id="hands-on-practice-part-i">10.15-11.00: Hands-on Practice PART I</h3>
+<h3 id="hands-on-practice-with-break">11.00-12.30: Hands-on Practice (with break)</h3>
 <ul>
-<li>Guided exercise: Data analysis project using R and Quarto</li>
-<li>Independent practice: Working on your data analysis project with support from workshop facilitator</li>
+<li>Structure, code, and version control: Work on your data analysis project</li>
 </ul>
 </div>
-</section>
-<section class="slide level2 center">
-
-<h3 id="hands-on-practice-part-ii">11.30-12.15: Hands-on Practice PART II</h3>
 <div class="fragment">
 <!-- -->
-<h3 id="closing-remarks-and-resources">12.00-13.00: Closing Remarks and Resources</h3>
+<h3 id="closing-remarks">12.30-13.00: Closing Remarks</h3>
 <ul>
 <li>Recap of the workshop</li>
-<li>Additional resources for learning R, Quarto, reproducibility best practices, version control and collaboration</li>
 <li>Q&amp;A session</li>
 </ul>
 </div>
 </section></section>
-<section id="your-turn-15-min" class="title-slide slide level1 center" data-background-color="#447099" data-transition="slide-in">
-<h1><svg aria-hidden="true" role="img" viewbox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"></path></svg> Your Turn (15 min)</h1>
-<ul>
-<li></li>
-</ul>
-<p><br></p>
-<ul>
-<li><p>Move to the (integrated) terminal and execute:</p></li>
-<li><p>Render via terminal with <code>quarto render ....qmd --to pdf</code></p></li>
-<li><p>Compare to the HTML version</p></li>
-</ul>
-</section>
-
 <section>
-<section id="using-zotero-with-r-and-quarto" class="title-slide slide level1 center" data-background-color="#a13c65">
-<h1>Using Zotero with R and Quarto</h1>
+<section id="recap-dependencies-and-the-groundhog-package" class="title-slide slide level1 center" data-background-color="#a13c65">
+<h1>Recap, dependencies, and the groundhog package</h1>
 
 </section>
-<section id="see-instructions-here" class="slide level2 center">
-<h2>See instructions <a href="https://gsverhoeven.github.io/post/zotero-rmarkdown-csl/">here</a></h2>
-
-<img data-src="images/zotero.png" class="r-stretch"></section></section>
+<section id="packages-and-package-dependecies" class="slide level2 center">
+<h2>Packages and package dependecies</h2>
+<div class="fragment">
+<p><img data-src="https://media.giphy.com/media/l2SpS6MdfeYgPHZpC/giphy.gif"></p>
+</div>
+</section>
+<section id="what-happened-and-how-to-avoid-it" class="slide level2 center">
+<h2>What happened and how to avoid it</h2>
+<ul>
+<li>The <code>custom_functions.R</code> file was pretty massive and needed many R packages that many of you had not installed</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>One way around that: deleting all functions that are not needed and install relevant packages for the remaining (what we did yesterday)</li>
+</ul>
+</div>
+</section>
+<section id="another-solution-using-the-dependencies-package" class="slide level2 center">
+<h2>Another solution: using the <code>dependencies</code> package</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1"></a><span class="in">```{r}</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="fu">library</span>(renv)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>deps <span class="ot">&lt;-</span> <span class="fu">dependencies</span>(<span class="at">path =</span> <span class="st">"Exercise/R"</span>)</span>
+<span id="cb1-5"><a href="#cb1-5"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="co"># Extract package names</span></span>
+<span id="cb1-7"><a href="#cb1-7"></a>pkgs <span class="ot">&lt;-</span> deps<span class="sc">$</span>Package</span>
+<span id="cb1-8"><a href="#cb1-8"></a></span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="co"># Remove duplicates, just in case</span></span>
+<span id="cb1-10"><a href="#cb1-10"></a>pkgs <span class="ot">&lt;-</span> <span class="fu">unique</span>(pkgs)</span>
+<span id="cb1-11"><a href="#cb1-11"></a></span>
+<span id="cb1-12"><a href="#cb1-12"></a><span class="co"># Install packages</span></span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="fu">install.packages</span>(pkgs)</span>
+<span id="cb1-14"><a href="#cb1-14"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="fragment">
+<p>… however, that does not work if you are using different versions of packages!</p>
+</div>
+</section>
+<section id="the-groundhog-package" class="slide level2 center">
+<h2>The <code>groundhog</code> package</h2>
+<ul>
+<li>Different versions of a package may produce different results or are different in terms of functionality</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>When sharing scripts/code or when collaborating with others on a project, using the same version of a package becomes crucial</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The <code>groundhog</code> package in R is used for managing the package dependencies in an R script with specific requirements for package versions</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>The <code>groundhog</code> package allows users to load packages from a specific date in the past</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Instead of loading the most recent (or installed) version of a package with the <code>library()</code> function, users can load a version of the package that was current as of a specific date</li>
+</ul>
+</div>
+</section>
+<section id="the-groundhog-package-1" class="slide level2 center">
+<h2>The <code>groundhog</code> package</h2>
+<ul>
+<li>With groundhog, the only thing you need to change to make your R code reproducible is:</li>
+</ul>
+<table>
+<tbody>
+<tr class="odd">
+<td>Instead of:</td>
+<td><code>library(pkg)</code></td>
+</tr>
+<tr class="even">
+<td>Do this:</td>
+<td><code>groundhog.library(pkg, date)</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="the-groundhog-package-2" class="slide level2 center">
+<h2>The <code>groundhog</code> package</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb2-1"><a href="#cb2-1"></a><span class="in">```{r}</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb2-3"><a href="#cb2-3"></a><span class="fu">library</span>(<span class="st">"groundhog"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4"></a><span class="fu">groundhog.library</span>(pkgs, <span class="st">"2022-12-01"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="for-your-current-scripts" class="slide level2 center">
+<h2>For your current scripts</h2>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource markdown number-lines code-with-copy"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1"></a><span class="in">```{r}</span></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="co">#| eval: false</span></span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="fu">library</span>(<span class="st">"groundhog"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="fu">groundhog.library</span>(<span class="st">"</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="st">    library(pkgA)</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="st">    library(pkgB)</span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="st">    library(pkgC)   "</span>,    date)</span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<h3 id="pretty-insightful-article-on-the-groundhog-package"><a href="https://datacolada.org/100">pretty insightful article on the <code>groundhog</code> package</a></h3>
+</section>
+<section id="tidystats" class="slide level2 center">
+<h2>Tidystats</h2>
+<p>Learn how to use it <a href="https://www.tidystats.io/word-add-in/">here</a></p>
+</section></section>
 <section>
-<section id="creating-apa-style-papers-with-r-and-quarto" class="title-slide slide level1 center" data-background-color="#a13c65">
-<h1>Creating APA style papers with R and Quarto</h1>
+<section id="version-control" class="title-slide slide level1 center" data-background-color="#a13c65">
+<h1>Version control</h1>
 
 </section>
-<section id="see-instructions-here-1" class="slide level2 center">
-<h2>See instructions <a href="https://bookdown.org/yihui/rmarkdown-cookbook/word-template.html">here</a></h2>
+<section id="what-is-version-control" class="slide level2 center">
+<h2>What is version control?</h2>
+<ul>
+<li>Version control, also known as source control, is the practice of tracking and managing changes to software code</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Version control systems are software tools that help software teams manage changes to source code over time</li>
+</ul>
+</div>
+</section>
+<section id="the-benefits-of-version-control" class="slide level2 center">
+<h2>The benefits of version control</h2>
+<ul>
+<li>A complete long-term change history of every file</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Branching and merging</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Ability to make your work more reproducible</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Collaboration through platforms hosting versions of your code</li>
+</ul>
+</div>
+</section>
+<section id="what-is-git" class="slide level2 center">
+<h2>What is Git?</h2>
 
-<img data-src="images/word_int.png" width="250" class="r-stretch"></section></section>
+<img data-src="images/logo-Git.png" class="r-stretch"><ul>
+<li>Git is a software that keeps track of versions of a set of files</li>
+<li>It is <em>local</em> to you; the records are kept on your computer</li>
+</ul>
+</section>
+<section id="what-is-github" class="slide level2 center">
+<h2>What is GitHub?</h2>
+
+<img data-src="images/github.png" class="r-stretch"><ul>
+<li>a hosting service that can keep the records</li>
+<li>it is <em>remote</em> to you, like Dropbox</li>
+<li>GitHub is specifically structured to keep records with Git</li>
+</ul>
+</section></section>
 <section>
-<section id="code-collaboration-using-git-and-github" class="title-slide slide level1 center" data-background-color="#a13c65">
-<h1>Code collaboration using Git and GitHub</h1>
+<section id="getting-started-with-git" class="title-slide slide level1 center" data-background-color="#a13c65">
+<h1>Getting started with Git</h1>
 
-</section>
-<section id="advantages-of-using-git-and-github" class="slide level2 center">
-<h2>Advantages of using Git and GitHub</h2>
-<div class="fragment">
-<div style="font-size: 1.2em">
-<ul>
-<li>Contribute to open source projects, see <a href="https://www.dataschool.io/how-to-contribute-on-github/">here</a> (almost all open source projects use GitHub) 🎈</li>
-</ul>
-</div>
-</div>
-<div class="fragment">
-<div style="font-size: 1.2em">
-<ul>
-<li>Showcase your work 🎤</li>
-</ul>
-</div>
-</div>
-<div class="fragment">
-<div style="font-size: 1.2em">
-<ul>
-<li>Track changes across versions 🔍</li>
-</ul>
-</div>
-</div>
-<div class="fragment">
-<div style="font-size: 1.2em">
-<ul>
-<li>Collaborate on projects 👨‍🔬 👷‍♀️</li>
-</ul>
-</div>
-</div>
-<div class="fragment">
-<div style="font-size: 1.2em">
-<ul>
-<li>Various integration options 🤹‍♂️
-<ul>
-<li>Amazon and Google Cloud; or use GitHub pages or Netlify to build websites based on your R files</li>
-</ul></li>
-</ul>
-</div>
-</div>
-</section>
-<section id="version-control-git-and-github-definitions" class="slide level2 center">
-<h2>Version Control — Git and GitHub — Definitions</h2>
-<div>
-<h3 id="git">Git <img data-src="images/git.png" width="50"></h3>
-<ul>
-<li class="fragment">a software that keeps track of versions of a set of files</li>
-<li class="fragment">it is <em>local</em> to you; the records are kept on your computer</li>
-</ul>
-<h3 id="github">GitHub <img data-src="images/github.png" width="70"></h3>
-<ul>
-<li class="fragment">a hosting service that can keep the records</li>
-<li class="fragment">it is <em>remote</em> to you, like Dropbox</li>
-<li class="fragment">GitHub is specifically structured to keep records with Git</li>
-</ul>
-</div>
 </section>
 <section id="section" class="slide level2 center">
 <h2></h2>
-<div>
-<h3 id="repository-or-repo">Repository, or repo</h3>
+<h3 id="check-that-git-is-installed">1. Check that Git is installed</h3>
 <ul>
-<li class="fragment">a set of files whose records are kept together, by Git and/or on GitHub</li>
+<li>In the terminal (in RStudio), type</li>
 </ul>
-<h3 id="to-commit">To commit</h3>
+<div style="font-size: 70px;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">which</span> git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p><br></p>
+<div class="fragment">
 <ul>
-<li class="fragment">to take a snapshot of a repository</li>
-<li class="fragment">it is local, the records are kept on your computer unless you push</li>
+<li>Check your git version</li>
 </ul>
-<h3 id="to-push">To push</h3>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p><br></p>
+<div class="fragment">
+<!-- -->
+<h3 id="generate-token">2. Generate token</h3>
 <ul>
-<li class="fragment">to move a copy of the records from Git to GitHub, from your computer to online server</li>
-<li class="fragment">it is like uploading (the new versions of) your files and sub-folders to a website</li>
+<li>Go to <a href="https://github.com/settings/tokens" class="uri">https://github.com/settings/tokens</a> and click Generate token</li>
 </ul>
 </div>
 </section>
 <section id="section-1" class="slide level2 center">
 <h2></h2>
-<figure>
-<p><img data-src="images/repository.png" data-align="center" width="1300"></p>
-<figcaption>
-<a href="https://iqss.github.io/dss-rbuild/version-control.html">Source: https://iqss.github.io/dss-rbuild/version-control.html</a>
-</figcaption>
-</figure>
+<h3 id="set-credentials-from-within-rstudio">3. Set credentials from within RStudio</h3>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">gitcreds::gitcreds_set()</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p><br></p>
+<div class="fragment">
+<!-- -->
+<h3 id="tell-git-who-you-are">4. Tell Git who you are</h3>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name <span class="st">"jack.bel"</span> <span class="co"># use your GitHub username instead</span></span>
+<span id="cb7-2"><a href="#cb7-2"></a><span class="fu">git</span> config <span class="at">--global</span> user.email jack.bel@gmail.com <span class="co"># use your mail address that you have for your Github account instead</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p><br></p>
+<div class="fragment">
+<p>Or:</p>
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="ex">install.packages</span><span class="er">(</span><span class="st">"usethis"</span><span class="kw">)</span></span>
+<span id="cb8-2"><a href="#cb8-2"></a><span class="ex">usethis::use_git_config</span><span class="er">(</span><span class="ex">user.name=</span><span class="st">"Jane Doe"</span><span class="ex">,</span> user.email=<span class="st">"jane@example.org"</span><span class="kw">)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 </section></section>
 <section>
-<section id="quick-excourse-setting-up-git-and-github" class="title-slide slide level1 center" data-background-color="#DADEFD">
-<h1>Quick excourse: <em>Setting up Git and GitHub</em></h1>
-<ol type="1">
-<li><p>Read the instructions in the <a href="https://happygitwithr.com/">Happy Git with R Book</a> and the <a href="https://docs.github.com/en/get-started/quickstart/set-up-git">official GitHub guides</a> to install Git. <a href="https://www.computerhope.com/issues/ch001927.htm">Installation instructions for Windows users</a></p></li>
-<li><p><a href="https://happygitwithr.com/github-acct.html">Register a GitHub account</a></p></li>
-</ol>
+<section id="github-knowledge-base" class="title-slide slide level1 center" data-background-color="#a13c65">
+<h1>GitHub Knowledge Base</h1>
+
 </section>
-<section id="version-control-git-and-github-check-setup" class="slide level2 center">
-<h2>Version Control — Git and GitHub — check setup</h2>
-<div class="fragment">
-<p>In the <strong>terminal</strong> 📱:</p>
-<div style="font-size: 70px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1"></a><span class="fu">git</span> <span class="at">--version</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<ul>
-<li>you should see the Git version ✅</li>
-</ul>
-</div>
-<div class="fragment">
-<p>In the <strong>terminal</strong> 📱:</p>
-<div style="font-size: 70px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1"></a><span class="fu">git</span> config <span class="at">--global</span> user.name</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<ul>
-<li>you should see the Git user name ✅</li>
-</ul>
-<p><br></p>
-</div>
-<div class="fragment">
-<h4 id="if-these-steps-did-not-work-go-here-and-set-up-git">🚫 If these steps did not work, go <a href="https://docs.github.com/en/get-started/getting-started-with-git/setting-your-username-in-git">here</a> and set up Git</h4>
-<h4 id="you-just-dont-want-to-use-the-terminal-for-version-control-in-rstudio-see-here-and-particularly-this-video">You just don’t want to use the terminal ❓ ▶ For version control in RStudio, see <a href="https://support.rstudio.com/hc/en-us/articles/200532077-Version-Control-with-Git-and-SVN">here</a>, and particularly <a href="https://www.youtube.com/watch?v=megZYkCLMA4"><strong>this video</strong></a></h4>
-</div>
+<section id="github-knowledge-base-1" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+
+<img data-src="images/Git-process1.png" class="r-stretch"></section>
+<section id="github-knowledge-base-2" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+
+<img data-src="images/Git-process2.png" class="r-stretch"></section>
+<section id="github-knowledge-base-3" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+
+<img data-src="images/Git-process3.png" class="r-stretch"></section>
+<section id="github-knowledge-base-4" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+
+<img data-src="images/Git-process4.png" class="r-stretch"></section>
+<section id="github-knowledge-base-5" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+
+<img data-src="images/Git-process5.png" class="r-stretch"></section>
+<section id="github-knowledge-base-6" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+
+<img data-src="images/Git-process6.png" class="r-stretch"></section>
+<section id="github-knowledge-base-7" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+
+<img data-src="images/Git-process7.png" class="r-stretch"></section>
+<section id="github-knowledge-base-8" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+<table>
+<colgroup>
+<col style="width: 33%">
+<col style="width: 66%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Commands</th>
+<th>Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git init &lt;directory&gt;</code></td>
+<td>Create empty Git repo in specified directory</td>
+</tr>
+<tr class="even">
+<td><code>git clone &lt;repository&gt;</code></td>
+<td>Clone a repository located at <repository> your local machine</repository></td>
+</tr>
+<tr class="odd">
+<td><code>git config user.name &lt;username&gt;</code></td>
+<td>Define author name to be used for all commits in current repository</td>
+</tr>
+<tr class="even">
+<td><code>git add &lt;directory&gt;</code></td>
+<td>Stage all changes in <directory> for the next commit</directory></td>
+</tr>
+</tbody>
+</table>
 </section>
-<section id="version-control-git-and-github-connect-local-with-remote" class="slide level2 center">
-<h2>Version Control — Git and GitHub — connect local with remote</h2>
+<section id="github-knowledge-base-9" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+<table>
+<colgroup>
+<col style="width: 24%">
+<col style="width: 75%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Commands</th>
+<th>Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git commit -m &lt;"message"&gt;</code></td>
+<td>Commit the staged snapshot, but instead of launching a text editor, use &lt;“message”&gt; as the commit message</td>
+</tr>
+<tr class="even">
+<td><code>git status</code></td>
+<td>List which files are staged, unstaged, and untracked</td>
+</tr>
+<tr class="odd">
+<td><code>git log</code></td>
+<td>Display the entire commit history using the default format</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-knowledge-base-10" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+<table>
+<colgroup>
+<col style="width: 26%">
+<col style="width: 73%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Commands</th>
+<th>Operations</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>git pull &lt;remote&gt;</code></td>
+<td>Fetch the specified remote’s copy of current branch and immediately merge it into the local copy</td>
+</tr>
+<tr class="even">
+<td><code>git push &lt;remote&gt; &lt;branch&gt;</code></td>
+<td>Upload local repository content to a remote repository</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="github-knowledge-base-11" class="slide level2 center">
+<h2>GitHub Knowledge Base</h2>
+<table>
+<colgroup>
+<col style="width: 14%">
+<col style="width: 85%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><strong>Pull requests</strong></td>
+<td><ul>
+<li><p>Proposed changes to a repository submitted by a user and accepted or rejected by a repository’s collaborators</p></li>
+<li><p>Pull requests each have their own discussion forum</p></li>
+</ul></td>
+</tr>
+<tr class="even">
+<td><strong>Issues</strong></td>
+<td><ul>
+<li><p>Suggested improvements, tasks or questions related to the repository</p></li>
+<li><p>Can be created by anyone (for public repositories), and are moderated by repository collaborators</p></li>
+<li><p>Each issue contains its own discussion thread</p></li>
+</ul></td>
+</tr>
+</tbody>
+</table>
+</section></section>
+<section>
+<section id="the-version-control-workflow-with-git-and-github" class="title-slide slide level1 center" data-background-color="#a13c65">
+<h1>The version control workflow with Git and GitHub</h1>
+
+</section>
+<section id="on-github" class="slide level2 center">
+<h2>On GitHub</h2>
 <div class="columns">
 <div class="column" style="width:40%;">
 <ol type="1">
@@ -626,8 +854,8 @@ Anne-Kathrin Kleine
 </ol>
 
 <img data-src="images/push.png" width="900" class="r-stretch"></section>
-<section id="section-3" class="slide level2 center">
-<h2></h2>
+<section id="in-the-terminal" class="slide level2 center">
+<h2>In the terminal</h2>
 <ol start="4" type="1">
 <li>In the <strong>terminal</strong> 📱, navigate to your Quarto project folder:</li>
 </ol>
@@ -636,7 +864,7 @@ Anne-Kathrin Kleine
 <div class="code-with-filename-file">
 <pre><strong>terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1"></a><span class="bu">cd</span> project_folder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="bu">cd</span> project_folder</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><br></p>
@@ -649,7 +877,7 @@ Anne-Kathrin Kleine
 <div class="code-with-filename-file">
 <pre><strong>terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1"></a><span class="fu">git</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">git</span> init</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><br></p>
@@ -663,12 +891,12 @@ Anne-Kathrin Kleine
 <div class="code-with-filename-file">
 <pre><strong>terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1"></a><span class="fu">touch</span> README.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">touch</span> README.md</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="section-4" class="slide level2 center">
+<section id="section-3" class="slide level2 center">
 <h2></h2>
 <ol start="7" type="1">
 <li>stage all the content in that folder to be added:</li>
@@ -678,7 +906,7 @@ Anne-Kathrin Kleine
 <div class="code-with-filename-file">
 <pre><strong>terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb6-1"><a href="#cb6-1"></a><span class="fu">git</span> add .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">git</span> add .</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><br></p>
@@ -691,12 +919,12 @@ Anne-Kathrin Kleine
 <div class="code-with-filename-file">
 <pre><strong>terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb7-1"><a href="#cb7-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add empty readme"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"add empty readme"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 </div>
 </section>
-<section id="section-5" class="slide level2 center">
+<section id="section-4" class="slide level2 center">
 <h2></h2>
 <ol start="9" type="1">
 <li>connect local repo to the remote repo. Substitute the link with your repo URL!</li>
@@ -706,7 +934,7 @@ Anne-Kathrin Kleine
 <div class="code-with-filename-file">
 <pre><strong>terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">git</span> remote add origin https://github.com/AnneOkk/testrepo.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">git</span> remote add origin https://github.com/AnneOkk/testrepo.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><br></p>
@@ -719,246 +947,45 @@ Anne-Kathrin Kleine
 <div class="code-with-filename-file">
 <pre><strong>terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb9-1"><a href="#cb9-1"></a><span class="fu">git</span> push origin master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">git</span> push origin master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><br></p>
 </div>
-<div class="fragment">
-<p><img data-src="images/success.png" width="800"></p>
-<h3 id="the-pushed-files-should-appear-in-your-github-repository">🎈 The pushed files should appear in your GitHub repository 🎈</h3>
-</div>
 </section>
-<section id="version-control-git-and-github-collaborating" class="slide level2 center">
-<h2>Version Control — Git and GitHub — collaborating</h2>
-<h3 id="imagine">Imagine… 🤔</h3>
-<div class="fragment">
-<ul>
-<li>you work in a team of data scientists/ data enthusiastic researchers 🧙🧙🏿🧙‍♀️🧙🏻‍♀️</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>you want to be able to work together on a data analysis project 👨‍💻👩‍💻 👨‍💻👩‍💻</li>
-</ul>
-</div>
-<div class="fragment">
-<ul>
-<li>you want to keep track of what the others do and finally merge individual contributions into one overall project ✨ 💾 ✨</li>
-</ul>
-</div>
-<div class="fragment">
-<h4 id="but-how">But how ❓ 🤷</h4>
-</div>
+<section id="section-5" class="slide level2 center">
+<h2></h2>
+
+<img data-src="images/success.png" width="800" class="r-stretch"><h3 id="the-pushed-files-should-appear-in-your-github-repository">🎈 The pushed files should appear in your GitHub repository 🎈</h3>
 </section></section>
 <section>
-<section id="version-control-git-and-github-collaborating-1" class="title-slide slide level1 center" data-background-color="#a13c65">
-<h1>Version Control — Git and GitHub — collaborating</h1>
+<section id="your-turn-45-min" class="title-slide slide level1 center" data-background-color="#447099" data-transition="slide-in">
+<h1><svg aria-hidden="true" role="img" viewbox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"></path></svg> Your Turn (45 min)</h1>
 
-</section>
-<section id="scenario-1---you-are-owner-collaborator" class="slide level2 center">
-<h2>Scenario 1 - you are owner/ collaborator</h2>
-<ol type="1">
-<li>Go to the GitHub repository you are working on as a team</li>
-</ol>
-<div class="fragment">
-<ol start="2" type="1">
-<li>In the terminal 📱, navigate to where you want to store the project files and type:</li>
-</ol>
-<div style="font-size: 60px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">git</span> clone https://github.com/AnneOkk/testrepo.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><img data-src="images/clone.png" width="800"></p>
-</div>
 </section>
 <section id="section-6" class="slide level2 center">
 <h2></h2>
-<ol start="3" type="1">
-<li>Next, you would always want to make sure that you are up to date with what has changed in the remote repository</li>
-</ol>
-<div class="fragment">
-<p>In the 📱 terminal 📱, type:</p>
-<div style="font-size: 60px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb11-1"><a href="#cb11-1"></a><span class="fu">git</span> pull origin master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><br></p>
-<ol start="4" type="1">
-<li>Create a new branch to add changes that belong to a novel feature you are working on (this prevents messing up the master branch)</li>
-</ol>
-<div style="font-size: 70px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb12-1"><a href="#cb12-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> <span class="st">"cool-feature"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><br></p>
-<ol start="5" type="1">
-<li>Now make some changes (e.g., add the new cool feature to the code)</li>
-</ol>
-</div>
 </section>
-<section id="section-7" class="slide level2 center">
-<h2></h2>
-<ol start="6" type="1">
-<li>Add and commit the files …through the usual workflow 😴</li>
-</ol>
-<div style="font-size: 60px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb13-1"><a href="#cb13-1"></a><span class="fu">git</span> add .</span>
-<span id="cb13-2"><a href="#cb13-2"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"new feature file added"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<section id="poll-what-would-you-like-to-focus-on-in-the-exercise" class="slide level2 center" data-background-color="#447099" data-transition="slide-in">
+<h2>Poll: What would you like to focus on in the exercise?</h2>
+<div class="fragment">
+<!-- -->
+<h3 id="focus-on-r-project-structure">1) Focus on R Project structure</h3>
 </div>
 <div class="fragment">
-<p><br></p>
-<p>🚧 👀 BUT you push the changes to the newly created branch to prevent messing up the master branch! 👀 🚧</p>
-<div style="font-size: 60px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb14-1"><a href="#cb14-1"></a><span class="fu">git</span> push origin cool-feature</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
+<!-- -->
+<h3 id="focus-on-code-improvement">2) Focus on code improvement</h3>
 </div>
 <div class="fragment">
-<p><img data-src="images/pull.png" width="1000"></p>
-</div>
-</section>
-<section id="section-8" class="slide level2 center">
-<h2></h2>
-<ol start="7" type="1">
-<li>On GitHub, create a pull request</li>
-</ol>
-
-<img data-src="images/pull_req.png" width="700" class="r-stretch"><div class="fragment">
-<p><br></p>
-<ol start="8" type="1">
-<li>Once all issues are resolved, your changes will be merged into the master branch 🥳</li>
-</ol>
-</div>
-</section>
-<section id="section-9" class="slide level2 center">
-<h2></h2>
-<ol start="9" type="1">
-<li>Checkout to master branch</li>
-</ol>
-<div style="font-size: 60px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb15"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">git</span> checkout master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="fragment">
-<p><br></p>
-<ol start="10" type="1">
-<li>Pull changes</li>
-</ol>
-<div style="font-size: 60px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">git</span> pull origin master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p><br></p>
-<ol start="11" type="1">
-<li>Checkout a new branch for missing feature.</li>
-</ol>
-<div style="font-size: 60px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">git</span> checkout <span class="at">-b</span> data-reader</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p><br></p>
-</div>
-<div class="fragment">
-<h3 id="and-so-on">… And so on …</h3>
-</div>
-</section>
-<section id="scenario-2---you-want-to-contribute-to-an-open-science-project" class="slide level2 center">
-<h2>Scenario 2 - you want to contribute to an open science project</h2>
-<div class="fragment">
-<ol type="1">
-<li>In GitHub, navigate to the project you want to contribute to</li>
-</ol>
-</div>
-<div class="fragment">
-<ol start="2" type="1">
-<li>Fork the repo!</li>
-</ol>
-<p><img data-src="images/fork.png" width="700"></p>
-</div>
-<div class="fragment">
-<ol start="3" type="1">
-<li>Clone the new repo!</li>
-</ol>
-<div style="font-size: 70px;">
-<div class="code-with-filename">
-<div class="code-with-filename-file">
-<pre><strong>terminal</strong></pre>
-</div>
-<div class="sourceCode" id="cb18"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb18-1"><a href="#cb18-1"></a><span class="fu">git</span> clone https://github.com/AnneOkk/Testrepo-1.git</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-</div>
-<div class="fragment">
-<ol start="4" type="1">
-<li>Make your changes and then add, commit, and push to your master branch</li>
-</ol>
-</div>
-</section>
-<section id="section-10" class="slide level2 center">
-<h2></h2>
-<ol start="5" type="1">
-<li>On GitHub, go back to the original repository and create a pull request.</li>
-</ol>
-<p>You may need to click “compare across forks”</p>
-
-<img data-src="images/successful_pull.png" width="700" class="r-stretch"></section>
-<section id="on-the-other-side-repo-owner" class="slide level2 center">
-<h2>… On the other side (repo owner)</h2>
-
-<img data-src="images/review_pull.png" width="250" class="r-stretch"><p>Open and review the pull request! 🔍</p>
-<p>If you’re happy with the changes, merge! 👍</p>
-<p>Otherwise, request additional changes in comments. 💬</p>
-<div class="fragment">
-<p><br></p>
-<h3 id="yey-youre-all-set-to-contribute-to-open-science-projects-on-github">🎊 Yey, you’re all set to contribute to open science projects on GitHub! 🎊</h3>
+<!-- -->
+<h3 id="focus-on-version-control-with-git-and-github">3) Focus on version control with Git and GitHub</h3>
 </div>
 </section></section>
-<section id="your-turn-15-min-1" class="title-slide slide level1 center" data-background-color="#447099" data-transition="slide-in">
-<h1><svg aria-hidden="true" role="img" viewbox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"></path></svg> Your Turn (15 min)</h1>
+<section id="your-turn-45-min-1" class="title-slide slide level1 center" data-background-color="#447099" data-transition="slide-in">
+<h1><svg aria-hidden="true" role="img" viewbox="0 0 640 512" style="height:1em;width:1.25em;vertical-align:-0.125em;margin-left:auto;margin-right:auto;font-size:inherit;fill:white;overflow:visible;position:relative;"><path d="M64 96c0-35.3 28.7-64 64-64H512c35.3 0 64 28.7 64 64V352H512V96H128V352H64V96zM0 403.2C0 392.6 8.6 384 19.2 384H620.8c10.6 0 19.2 8.6 19.2 19.2c0 42.4-34.4 76.8-76.8 76.8H76.8C34.4 480 0 445.6 0 403.2zM281 209l-31 31 31 31c9.4 9.4 9.4 24.6 0 33.9s-24.6 9.4-33.9 0l-48-48c-9.4-9.4-9.4-24.6 0-33.9l48-48c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9zM393 175l48 48c9.4 9.4 9.4 24.6 0 33.9l-48 48c-9.4 9.4-24.6 9.4-33.9 0s-9.4-24.6 0-33.9l31-31-31-31c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0z"></path></svg> Your Turn (45 min)</h1>
 <ol type="1">
-<li><p>[Get Git and GitHub up and running]</p></li>
+<li><p>[Get Git and GitHub running]</p></li>
+<li><p>(Re)structure your project based on yesterday’s instructions</p></li>
 <li><p>Connect your local R project folder with a GitHub repository</p></li>
 <li><p>Change some of the content in R, save, and then push the changes to GitHub</p></li>
 </ol>
@@ -967,24 +994,20 @@ Anne-Kathrin Kleine
 <div class="code-with-filename-file">
 <pre><strong>terminal</strong></pre>
 </div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb19-1"><a href="#cb19-1"></a><span class="fu">git</span> add .</span>
-<span id="cb19-2"><a href="#cb19-2"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"senseful commit message that describes the change(s)"</span></span>
-<span id="cb19-3"><a href="#cb19-3"></a><span class="fu">git</span> push origin master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">git</span> add .</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="fu">git</span> commit <span class="at">-m</span> <span class="st">"senseful commit message that describes the change(s)"</span></span>
+<span id="cb16-3"><a href="#cb16-3"></a><span class="fu">git</span> push origin master</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p><br></p>
-<ol start="3" type="1">
-<li>[OPTIONAL] Create a pull request for your own repository and merge the changes into the master branch</li>
-</ol>
 </section>
 
 <section>
-<section id="integrating-osf-with-github" class="title-slide slide level1 center" data-background-color="#a13c65">
-<h1>Integrating osf with GitHub</h1>
+<section id="connecting-osf-to-github" class="title-slide slide level1 center" data-background-color="#a13c65">
+<h1>Connecting osf to GitHub</h1>
 
 </section>
-<section id="integrating-osf-with-github-1" class="slide level2 center">
-<h2>Integrating osf with GitHub</h2>
+<section id="connecting-osf-to-github-1" class="slide level2 center">
+<h2>Connecting osf to GitHub</h2>
 <ol type="1">
 <li>Create your osf project</li>
 </ol>
@@ -995,18 +1018,52 @@ Anne-Kathrin Kleine
 <p><img data-src="images/osf_int.png" width="850"></p>
 </div>
 </section>
-<section id="section-11" class="slide level2 center">
+<section id="section-7" class="slide level2 center">
 <h2></h2>
 <ol start="3" type="1">
 <li>Import GitHub Account</li>
 </ol>
 
 <img data-src="images/osf_imp.png" width="600" class="r-stretch"></section>
-<section id="section-12" class="slide level2 center">
+<section id="section-8" class="slide level2 center">
 <h2></h2>
 <h3 id="select-repo">4. Select Repo</h3>
 
 <img data-src="images/osf_sel.png" width="800" class="r-stretch"><h3 id="yey-youre-all-set-to-connect-your-github-content-to-osf">🎊 Yey, you’re all set to connect your GitHub content to osf! 🎊</h3>
+</section></section>
+<section>
+<section id="extra-.gitignore" class="title-slide slide level1 center" data-background-color="#a13c65">
+<h1>Extra: .gitignore</h1>
+
+</section>
+<section id="create-a-.gitignore-file-in-your-project-folder" class="slide level2 center">
+<h2>Create a .gitignore file in your project folder</h2>
+<div style="font-size: 70px;">
+<div class="code-with-filename">
+<div class="code-with-filename-file">
+<pre><strong>terminal</strong></pre>
+</div>
+<div class="sourceCode" id="cb17"><pre class="sourceCode numberSource bash number-lines code-with-copy"><code class="sourceCode bash"><span id="cb17-1"><a href="#cb17-1"></a><span class="fu">touch</span> .gitignore</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+</section>
+<section id="inside-the-.gitignore-file" class="slide level2 center">
+<h2>Inside the .gitignore file</h2>
+<pre><code>.Rproj.user
+.Rhistory
+.RData
+
+# Data preparation folder
+/Data_prep
+
+# Some folders
+/Manuscript_cache
+/Tables
+/Manuscript_files
+/OLD
+
+# Manuscript file
+Manuscript.docx</code></pre>
 </section>
 <section id="and-there-is-so-much-more" class="slide level2 center" data-background-color="#a13c65">
 <h2>…And there is so much more!</h2>
