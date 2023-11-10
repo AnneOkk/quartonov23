@@ -2,3 +2,7 @@
   quarto-pub:
     - id: 1656b007-af32-45b8-aedf-6adabedbb850
       url: 'https://quartopub.com/sites/anneokk/data-analysis-with-r-and-quarto--collaboration-using-github'
+- source: slides_d2.qmd
+  quarto-pub:
+    - id: c1c5c48b-e29e-4d16-8ba6-93bfd620bbf4
+      url: 'https://quartopub.com/sites/anneokk/quartoworkshopd2'

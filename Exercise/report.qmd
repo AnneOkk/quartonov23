@@ -16,6 +16,32 @@ format:
 
 # Preprocessing
 
+```{r}
+#| eval: false
+library("groundhog")
+groundhog.library("
+    library(tidyverse)
+library(readxl)
+library(haven)   ",    date)
+```
+
+```{r}
+#| eval: false
+library(renv)
+deps <- dependencies(path = "R")
+
+# Extract package names
+pkgs <- deps$Package
+
+# Remove duplicates, just in case
+pkgs <- unique(pkgs)
+
+# Install packages
+install.packages(pkgs)
+
+groundhog.library(pkgs, "2022-12-01")
+```
+
 ## Reading data in
 
 ```{r}
@@ -23,6 +49,9 @@ format:
 library(readxl)
 library(tidyverse)
 data <- read_excel("data/raw/data.xlsx", col_names = T) 
+
+library(groundhog)
+groundhog.library(haven, "2022-12-01")
 ```
 
 ## Manipulating data
