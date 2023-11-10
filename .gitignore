@@ -49,4 +49,4 @@ po/*~
 rsconnect/
 
 # Exclude data file
-data_sens/
+# data_sens/
